@@ -74,3 +74,21 @@ Also we have to install the MySQL community edition to our computer
 Use this page to download it -
 <https://dev.mysql.com/downloads/mysql/>
 
+## Step4: Setup the DB
+
+Run MySQL as root `mysql -u root -p` and create a DB and a User
+
+```sql
+CREATE DATABASE eventman;
+CREATE USER eventadmin IDENTIFIED BY 'eventpass';
+USE eventman;
+GRANT ALL PRIVILEGES ON eventman to eventadmin@'%';
+```
+
+Login using the new user and verify the database is accessible, first
+login with `mysql -u eventadmin -p`
+
+
+```sql
+USE eventman;
+```
