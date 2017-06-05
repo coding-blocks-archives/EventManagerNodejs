@@ -2,6 +2,7 @@
   "name": "event-manager-nagarro",
   "version": "0.1.0",
   "description": "Event Management Website",
+  "repository": "https://github.com/coding-blocks-archives/EventManagerNodejs",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,6 +10,9 @@
   "author": "Arnav Gupta",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.15.3"
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "mysql2": "^1.3.2",
+    "sequelize": "^3.30.4"
   }
 }
