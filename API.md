@@ -66,3 +66,5 @@ be added as host**_
 
 ### `PUT  /events/{id}`
 Update details of an event
+
+### Users

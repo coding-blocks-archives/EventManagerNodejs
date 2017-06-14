@@ -31,7 +31,24 @@ const User = db.define('user', {
     email: Sequelize.STRING
 });
 
-db.sync()
+const UserLocal = db.define('userlocal', {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    username: Sequelize.STRING,
+    password: Sequelize.STRING
+});
+
+Event.belongsTo(User);
+User.hasMany(Event);
+
+UserLocal.belongsTo(User);
+User.hasOne(UserLocal);
+
+
+db.sync({force: false})
     .then(() => {
         console.log("Database Synchronised");
     })
@@ -44,6 +61,7 @@ module.exports = {
     db,
     models: {
         User,
-        Event
+        Event,
+        UserLocal
     }
 };
