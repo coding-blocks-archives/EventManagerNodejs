@@ -30,7 +30,10 @@ route.post('/authorize', (req, res) => {
             token: uid(30),
             userId: user.id
         }).then((authtoken) => {
-            res.send(authtoken.token)
+            res.send({
+                succcess: true,
+                token: authtoken.token
+            })
         })
 
     })
