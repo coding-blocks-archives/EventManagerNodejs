@@ -41,11 +41,23 @@ const UserLocal = db.define('userlocal', {
     password: Sequelize.STRING
 });
 
+const AuthToken = db.define('authtoken', {
+    token: {
+        type: Sequelize.STRING,
+        primaryKey: true
+    }
+});
+
+
+
 Event.belongsTo(User);
 User.hasMany(Event);
 
 UserLocal.belongsTo(User);
 User.hasOne(UserLocal);
+
+AuthToken.belongsTo(User);
+User.hasMany(AuthToken);
 
 
 db.sync({force: false})
@@ -62,6 +74,7 @@ module.exports = {
     models: {
         User,
         Event,
-        UserLocal
+        UserLocal,
+        AuthToken
     }
 };

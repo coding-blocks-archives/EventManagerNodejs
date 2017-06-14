@@ -2,9 +2,11 @@
  * Created by championswimmer on 14/06/17.
  */
 const route = require('express').Router();
+const models = require('../db/models').models;
 const dbActions = require('../db/actions');
 const passport = require('../auth/passport');
 const el = require('../auth/authutils').ensureLogin;
+const uid = require('uid2');
 
 route.get('/login', (req, res) => {
     res.render("login", {})
@@ -15,6 +17,24 @@ route.post('/login', passport.authenticate('local', {
     failureRedirect: '/login',
     successRedirect: '/profile'
 }));
+
+route.post('/authorize', (req, res) => {
+    models.UserLocal.findOne({
+        where: {
+            username: req.body.username,
+            password: req.body.password
+        }
+    }).then((user) => {
+
+        models.AuthToken.create({
+            token: uid(30),
+            userId: user.id
+        }).then((authtoken) => {
+            res.send(authtoken.token)
+        })
+
+    })
+});
 
 route.get('/signup', (req, res) => {
     res.render("signup", {});

@@ -3,6 +3,7 @@
  */
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const BearerStrategy = require('passport-http-bearer').Strategy;
 
 const models = require('../db/models').models;
 
@@ -39,6 +40,24 @@ passport.use(new LocalStrategy(function (username, password, cb) {
 
     }).catch((err) => {
         return cb(err, false);
+    })
+}));
+
+passport.use(new BearerStrategy(function (token, done) {
+    models.AuthToken.findOne({
+        where: {
+            token: token
+        },
+        include: [models.User]
+    }).then((authtoken) => {
+
+        if (authtoken && (authtoken.user)) {
+            return done(null, authtoken.user)
+        } else {
+            return done(null, false, {message: 'Could not authorize'})
+        }
+    }).catch((err) => {
+        return done(err, false)
     })
 }));
 
